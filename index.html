@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Permai Polyclinics Fortuna | Family care in Kota Kinabalu</title>
+<meta name="description" content="Permai Polyclinics Fortuna. Quality, trusted family healthcare in Kota Kinabalu, Sabah. Open daily, 24 hours. Health check-ups, chronic care, ultrasound, blood screening and more." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500;1,9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5f8f1; --surface:#ffffff;
+    --soft:#e9f1df; --soft-2:#f0f5e8;
+    --ink:#26332b; --muted:#5f7268;
+    --green:#5c8a3a; --green-deep:#466b2c; --accent:#9cc26a;
+    --line:#e2ebd7; --ring:rgba(92,138,58,.28);
+    --shadow:0 18px 40px -24px rgba(40,70,35,.45);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top:112px;}
+  body{background:var(--bg); color:var(--ink); font-family:"Plus Jakarta Sans",ui-sans-serif,system-ui,sans-serif; font-size:20px; font-weight:500; line-height:1.6; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+  h1,h2,h3{font-family:"Sora","Plus Jakarta Sans",sans-serif; font-weight:800; line-height:1.04; letter-spacing:-.03em;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{width:min(1800px,94%); margin-inline:auto;}
+
+  /* ---------- header (transparent over hero, solid on scroll) ---------- */
+  header{position:fixed; top:0; left:0; right:0; z-index:50; background:linear-gradient(180deg, rgba(16,30,18,.5) 0%, rgba(16,30,18,0) 100%); transition:background .3s, box-shadow .3s, border-color .3s;}
+  .nav{display:flex; align-items:center; justify-content:space-between; height:106px;}
+  .brand{display:flex; align-items:center; gap:16px;}
+  .brand img{height:54px; width:auto; display:block;}
+  .brand .logo-color{display:none;}
+  header.solid .brand .logo-white{display:none;}
+  header.solid .brand .logo-color{display:block;}
+  .brand .fortuna{font-family:"Fraunces",serif; font-style:italic; font-weight:600; font-size:34px; line-height:1; color:#fff; padding-left:17px; border-left:2px solid rgba(255,255,255,.45); text-shadow:0 1px 10px rgba(0,0,0,.45); transition:color .3s, border-color .3s;}
+  header.solid .brand .fortuna{color:#0e7e74; border-left-color:rgba(0,0,0,.14); text-shadow:none;}
+  @media(max-width:480px){ .brand img{height:42px;} .brand .fortuna{font-size:26px; padding-left:12px;} }
+  nav.links{display:flex; align-items:center; gap:42px;}
+  nav.links a{font-weight:700; font-size:21px; color:#fff; opacity:.95; text-shadow:0 1px 10px rgba(0,0,0,.4); transition:opacity .2s,color .3s;}
+  nav.links a:hover{opacity:1;}
+  .btn{display:inline-flex; align-items:center; gap:8px; background:var(--green); color:#fff; font-weight:800; font-size:20px; padding:15px 30px; border-radius:999px; border:none; cursor:pointer; box-shadow:0 10px 22px -10px rgba(0,0,0,.4); transition:transform .2s,background .2s,box-shadow .2s;}
+  .btn:hover{background:var(--green-deep); transform:translateY(-2px);}
+  .btn.ghost{background:transparent; border:1.5px solid rgba(255,255,255,.65); color:#fff; box-shadow:none;}
+  .btn.ghost:hover{background:rgba(255,255,255,.15);}
+  /* solid state after scrolling past the hero */
+  header.solid{background:rgba(245,248,241,.86); backdrop-filter:saturate(160%) blur(10px); border-bottom:1px solid var(--line);}
+  header.solid .brand{color:var(--green-deep); text-shadow:none;}
+  header.solid nav.links a{color:var(--ink); text-shadow:none; opacity:.82;}
+  header.solid nav.links a:hover{color:var(--green-deep); opacity:1;}
+  header.solid .btn.ghost{border-color:var(--line); color:var(--green-deep);}
+  header.solid .btn.ghost:hover{background:var(--soft);}
+  @media(max-width:720px){ nav.links a{display:none;} nav.links .btn{display:inline-flex;} }
+
+  /* ---------- full-screen hero ---------- */
+  .hero{position:relative; width:100%; height:100vh; min-height:580px; overflow:hidden; background:#dfeccf;}
+  .hero canvas{position:absolute; inset:0; width:100%; height:100%; z-index:0;}
+  .hero img.fallback{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:none; z-index:0;}
+  /* light scrim - words sit on the picture, just enough for legibility */
+  .hero .scrim{position:absolute; inset:0; background:
+      linear-gradient(90deg, rgba(24,42,26,.13) 0%, rgba(24,42,26,.03) 40%, transparent 58%),
+      linear-gradient(0deg, rgba(24,42,26,.11) 0%, transparent 24%);}
+  .hero .scrim{z-index:1;}
+  .hero .h-inner{position:relative; z-index:2; height:100%; width:min(1800px,94%); margin:0 auto;
+    display:flex; align-items:flex-end; padding:0 0 6vh;}
+  .hero .h-copy{width:fit-content; max-width:1000px; color:#fff;}
+  .hero .eyebrow{display:inline-block; background:var(--green); color:#fff; font-weight:800; font-size:15px; letter-spacing:.16em; text-transform:uppercase; padding:9px 18px; border-radius:999px; margin-bottom:20px; box-shadow:0 10px 24px -12px rgba(0,0,0,.55);}
+  .hero h1{font-size:clamp(34px,5vw,68px); line-height:1.07; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,.55), 0 3px 28px rgba(0,0,0,.6);}
+  .hero p{margin-top:22px; font-weight:600; font-size:clamp(18px,2.1vw,26px); opacity:.97; max-width:44ch; text-shadow:0 1px 3px rgba(0,0,0,.6), 0 1px 18px rgba(0,0,0,.6);}
+  .hero .h-actions{margin-top:30px; display:flex; gap:14px; flex-wrap:wrap;}
+  .hero .scroll-cue{position:absolute; left:50%; bottom:26px; transform:translateX(-50%); color:#fff; opacity:.8; font-size:12px; letter-spacing:.18em; text-transform:uppercase; text-shadow:0 1px 10px rgba(0,0,0,.5); animation:bob 2.4s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(6px);}}
+
+  /* ---------- sections ---------- */
+  section{padding:104px 0;}
+  .eyebrow-d{color:var(--green); font-weight:800; font-size:17px; letter-spacing:.16em; text-transform:uppercase;}
+  .sec-head{max-width:840px; margin-bottom:56px;}
+  .sec-head h2{font-size:clamp(40px,5.2vw,72px); margin-top:16px;}
+  .sec-head p{color:var(--muted); margin-top:18px; font-size:23px;}
+
+  .about{display:grid; grid-template-columns:1.15fr .85fr; gap:56px; align-items:start;}
+  .about .card{background:var(--soft); border-radius:20px; padding:14px 28px; border:1px solid var(--line);}
+  .doc{margin:0; width:100%; max-width:440px; justify-self:end; background:none; border:none; box-shadow:none;}
+  .doc img{display:block; width:100%; height:auto;}
+  .doc figcaption{padding:14px 6px 0; text-align:center;}
+  .doc figcaption b{display:block; font-family:"Sora",sans-serif; font-weight:700; font-size:23px; color:var(--ink); letter-spacing:-.01em;}
+  .doc figcaption span{display:block; margin-top:5px; font-size:16px; color:var(--green); font-weight:600;}
+  @media(max-width:820px){ .doc{justify-self:center;} }
+  .about .stat{display:flex; gap:14px; align-items:flex-start; padding:14px 0;}
+  .about .stat + .stat{border-top:1px dashed var(--line);}
+  .about .stat .ic{width:54px;height:54px;flex:none;border-radius:14px;background:#fff;display:grid;place-items:center;font-size:26px;box-shadow:0 6px 14px -10px var(--ring);}
+  .about .stat b{display:block;font-size:22px;font-weight:700;}
+  .about .stat span{color:var(--muted); font-size:18px;}
+  @media(max-width:820px){ .about{grid-template-columns:1fr; gap:28px;} }
+
+  section.alt{background:var(--soft-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:28px;}
+  .svc{background:var(--surface); border:1px solid var(--line); border-radius:20px; padding:34px; transition:transform .25s,box-shadow .25s;}
+  .svc:hover{transform:translateY(-4px); box-shadow:var(--shadow);}
+  .svc .ic{width:66px;height:66px;border-radius:16px;background:var(--soft);display:grid;place-items:center;font-size:34px;margin-bottom:22px;}
+  .svc h3{font-size:28px; font-weight:700;}
+  .svc p{color:var(--muted); font-size:18.5px; margin-top:12px;}
+  @media(max-width:900px){ .grid{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:600px){ .grid{grid-template-columns:1fr;} }
+
+  .contact{display:grid; grid-template-columns:1fr 1fr; gap:40px;}
+  .contact .info .row{padding:16px 0; border-bottom:1px solid var(--line); display:flex; gap:14px; align-items:flex-start;}
+  .contact .info .row:last-child{border-bottom:none;}
+  .contact .info .row .ic{width:54px;height:54px;flex:none;border-radius:14px;background:var(--soft);display:grid;place-items:center;font-size:26px;}
+  .contact .info b{display:block; font-size:17px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--green); margin-bottom:5px;}
+  .contact .info p{color:var(--muted); font-size:19px;}
+  .contact .info a{color:var(--green-deep); font-weight:600;}
+  .contact .panel{background:var(--soft); border:1px solid var(--line); border-radius:22px; padding:38px; align-self:start;}
+  .contact .panel h3{font-size:31px; margin-bottom:10px;}
+  .contact .panel p{color:var(--muted); font-size:18.5px; margin-bottom:24px;}
+  .contact .panel .btn{width:100%; justify-content:center; margin-bottom:12px; box-shadow:0 10px 22px -12px var(--ring);}
+  @media(max-width:820px){ .contact{grid-template-columns:1fr; gap:28px;} }
+
+  /* FAQ accordions */
+  .faq-list{max-width:940px;}
+  .faq{background:var(--surface); border:1px solid var(--line); border-radius:16px; margin-bottom:14px;}
+  .faq summary{cursor:pointer; padding:22px 26px; font-family:"Sora",sans-serif; font-weight:700; font-size:20px; color:var(--ink); list-style:none; display:flex; justify-content:space-between; align-items:center; gap:18px;}
+  .faq summary::-webkit-details-marker{display:none;}
+  .faq summary::after{content:"+"; color:var(--green); font-size:28px; font-weight:400; line-height:1; transition:transform .2s;}
+  .faq[open] summary::after{transform:rotate(45deg);}
+  .faq p{padding:0 26px 22px; margin:0; color:var(--muted); font-size:17.5px;}
+  /* embedded map band */
+  .map{line-height:0;}
+  .map iframe{display:block; width:100%; height:400px; border:0; filter:saturate(1.05);}
+
+  footer{background:var(--ink); color:#d9e6d4; padding:52px 0;}
+  footer .f{display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap; font-size:17px;}
+  footer nav{display:flex; gap:28px;} footer a{opacity:.85;} footer a:hover{opacity:1;}
+</style>
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header id="header">
+    <div class="wrap nav">
+      <a class="brand" href="#home" aria-label="Permai Polyclinics Fortuna home">
+        <img class="logo-white" src="logo-white.png" alt="Permai Polyclinics" />
+        <img class="logo-color" src="logo.png" alt="Permai Polyclinics" />
+        <span class="fortuna">Fortuna</span>
+      </a>
+      <nav class="links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <a class="btn" href="https://wa.me/60129393537" target="_blank" rel="noopener">Send us a WhatsApp</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ============ HERO (full screen) ============ -->
+  <div class="hero" id="hero">
+    <img class="fallback" id="fallback" src="Gemini_Generated_Image_o5hssvo5hssvo5hs.png" alt="A broad green rain tree at sunrise" />
+    <div class="scrim"></div>
+    <div class="wrap h-inner">
+      <div class="h-copy">
+        <h1>Rooted in care,<br>growing with generations.</h1>
+        <p>Permai Polyclinics, trusted family healthcare in Kota Kinabalu since 1993.</p>
+        <div class="h-actions">
+          <a class="btn" href="https://wa.me/60129393537" target="_blank" rel="noopener">Send us a WhatsApp</a>
+          <a class="btn ghost" href="#services">Our services</a>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-cue">Scroll ↓</div>
+  </div>
+
+  <!-- ============ 2 · STRONG ROOTS (history) ============ -->
+  <section id="about">
+    <div class="wrap about">
+      <div>
+        <div class="sec-head" style="margin-bottom:26px;">
+          <h2>Strong roots.</h2>
+          <p>Permai Polyclinics opened its doors in 1993 and has cared for Sabahan families
+          ever since. The Fortuna branch carries that legacy into the neighbourhood, open
+          around the clock, grounded in the same belief: good medicine should feel calm,
+          personal and kind.</p>
+        </div>
+        <div class="card">
+          <div class="stat"><div class="ic">🌳</div><div><b>Caring since 1993</b><span>Over three decades of trusted care across Sabah.</span></div></div>
+          <div class="stat"><div class="ic">🕒</div><div><b>Always open</b><span>24 hours a day, every single day of the year.</span></div></div>
+          <div class="stat"><div class="ic">🩺</div><div><b>Led by trusted doctors</b><span>A dedicated team, including Dr Nicholas.</span></div></div>
+        </div>
+      </div>
+      <figure class="doc">
+        <img src="doctor-nicholas-cut.png" alt="Dr Nicholas Neelan Jeremiah, physician at Permai Polyclinics Fortuna" />
+        <figcaption>
+          <b>Dr Nicholas Neelan Jeremiah</b>
+          <span>Physician · Permai Polyclinics Fortuna</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ 3 · GROWING WITH THE COMMUNITY ============ -->
+  <section id="community" class="alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Growing with the community.</h2>
+        <p>From a baby's first check-up to a grandparent's regular visit, we care for every
+        branch of the family tree.</p>
+      </div>
+      <div class="grid">
+        <div class="svc"><div class="ic">👶</div><h3>Children &amp; Babies</h3><p>Immunisations, growth check-ups and gentle care for your littlest ones.</p></div>
+        <div class="svc"><div class="ic">👨‍👩‍👧</div><h3>Families &amp; Adults</h3><p>Everyday illnesses, screenings and preventive care for busy lives.</p></div>
+        <div class="svc"><div class="ic">🧓</div><h3>Seniors &amp; Elderly</h3><p>Chronic care, regular monitoring and unhurried, respectful attention.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4 · BRANCHES OF CARE (services from GMB) ============ -->
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Branches of care.</h2>
+        <p>Every service growing from the same root: your family's wellbeing.</p>
+      </div>
+      <div class="grid">
+        <div class="svc"><div class="ic">🩺</div><h3>General Consultation</h3><p>Walk-in and appointment consultations with our resident general practitioners.</p></div>
+        <div class="svc"><div class="ic">📈</div><h3>Acute &amp; Chronic Care</h3><p>Everyday illnesses plus ongoing care for diabetes, asthma, hypertension and heart disease.</p></div>
+        <div class="svc"><div class="ic">🚑</div><h3>Emergency Treatment</h3><p>Urgent medical care around the clock, 24 hours a day, every day.</p></div>
+        <div class="svc"><div class="ic">💉</div><h3>Vaccinations</h3><p>Immunisations for children and adults, including seasonal and travel jabs.</p></div>
+        <div class="svc"><div class="ic">💧</div><h3>Injections &amp; IV Drips</h3><p>In-clinic injections and intravenous drips whenever you need them.</p></div>
+        <div class="svc"><div class="ic">📋</div><h3>Health Screening</h3><p>Pre-employment and general wellness screening packages.</p></div>
+        <div class="svc"><div class="ic">🧪</div><h3>In-House Lab Tests</h3><p>Full blood tests, blood glucose, urine tests and blood pressure checks.</p></div>
+        <div class="svc"><div class="ic">🤰</div><h3>Ultrasound &amp; Nebuliser</h3><p>Antenatal ultrasound scans and nebuliser treatments on-site.</p></div>
+        <div class="svc"><div class="ic">🩹</div><h3>Wound &amp; Joint Care</h3><p>Wound dressing, plus knee and trigger-point (intra-articular) injections.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4b · QUESTIONS, ANSWERED (FAQ / SEO) ============ -->
+  <section id="faq" class="alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Questions, answered.</h2>
+        <p>Common questions about our treatments, from knee injections to health screening.</p>
+      </div>
+      <div class="faq-list">
+        <details class="faq"><summary>Do you offer knee pain treatment and knee injection therapy?</summary><p>Yes. Our doctors provide intra-articular knee injections and trigger-point injections to relieve joint and muscle pain, alongside assessment and ongoing management of knee and joint conditions.</p></details>
+        <details class="faq"><summary>What is an intra-articular (knee) injection?</summary><p>It is an injection given directly into the knee joint to reduce inflammation and ease pain. It is a quick, in-clinic procedure performed by our doctors, often used for arthritis and chronic knee pain.</p></details>
+        <details class="faq"><summary>Are you really open 24 hours?</summary><p>Yes. Permai Polyclinics Fortuna is open 24 hours a day, every day of the year, for both routine and emergency care.</p></details>
+        <details class="faq"><summary>Do I need an appointment, or can I walk in?</summary><p>Walk-ins are welcome any time. You can also message us on WhatsApp at 012-939 3537 to arrange a convenient time.</p></details>
+        <details class="faq"><summary>Do you offer pre-employment health screening?</summary><p>Yes. We provide pre-employment and general health screening packages, including blood pressure, blood glucose, urine tests and full blood tests.</p></details>
+        <details class="faq"><summary>Do you treat children and families?</summary><p>Absolutely. We care for the whole family, from babies and children to adults and the elderly, including immunisations and growth check-ups.</p></details>
+        <details class="faq"><summary>Do you provide emergency treatment and IV drips?</summary><p>Yes. We offer emergency treatment around the clock, along with injections and intravenous (IV) drips when needed.</p></details>
+        <details class="faq"><summary>Where is the clinic located?</summary><p>We are at the Fortuna Commercial Centre, Mile 2.5, Jalan Penampang, Kota Kinabalu (Ground Floor, Lot 3, Block D2, Lorong Seroja 2).</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5 · SHELTER WHEN YOU NEED IT MOST (contact) ============ -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Shelter when you need it most.</h2>
+        <p>Open day and night, all year round. Whenever you need us, we're here.</p>
+      </div>
+      <div class="contact">
+        <div class="info">
+          <div class="row"><div class="ic">📍</div><div><b>Address</b><p>Ground Floor, Lot 3, Block D2, Lorong Seroja 2, Fortuna Commercial Centre, Mile 2.5, Jalan Penampang, 88200 Kota Kinabalu, Sabah</p></div></div>
+          <div class="row"><div class="ic">📞</div><div><b>Phone</b><p><a href="tel:+6088239393">088-239393</a></p></div></div>
+          <div class="row"><div class="ic">💬</div><div><b>WhatsApp</b><p><a href="https://wa.me/60129393537" target="_blank" rel="noopener">012-939 3537</a></p></div></div>
+          <div class="row"><div class="ic">✉️</div><div><b>Email</b><p><a href="mailto:permaipolyclinics.fortuna@gmail.com">permaipolyclinics.fortuna@gmail.com</a></p></div></div>
+          <div class="row"><div class="ic">🕒</div><div><b>Opening hours</b><p>Open daily · 24 hours</p></div></div>
+        </div>
+        <div class="panel">
+          <h3>Send us a WhatsApp</h3>
+          <p>Message us on WhatsApp or give us a call and our team will help you find a time.</p>
+          <a class="btn" href="tel:+6088239393">📞 Call 088-239393</a>
+          <a class="btn ghost" href="https://wa.me/60129393537" target="_blank" rel="noopener">💬 WhatsApp us</a>
+          <a class="btn ghost" href="https://www.google.com/maps/search/Permai+Polyclinics+Fortuna+Kota+Kinabalu" target="_blank" rel="noopener">🗺️ Get directions</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MAP ============ -->
+  <div class="map">
+    <iframe
+      src="https://www.google.com/maps?q=Permai%20Polyclinics%20Fortuna%2C%20Lorong%20Seroja%202%2C%20Fortuna%20Commercial%20Centre%2C%20Jalan%20Penampang%2C%2088200%20Kota%20Kinabalu%2C%20Sabah&output=embed"
+      loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      title="Map to Permai Polyclinics Fortuna"></iframe>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer>
+    <div class="wrap f">
+      <img src="logo-white.png" alt="Permai Polyclinics" style="height:42px;width:auto;opacity:.95;" />
+      <nav><a href="#home">Home</a><a href="#about">About</a><a href="#services">Services</a><a href="#contact">Contact</a></nav>
+      <span style="opacity:.7;">© 2026 Permai Polyclinics Fortuna</span>
+    </div>
+  </footer>
+
+  <!-- ============ TREE HERO ANIMATION (soft self-sway, cover-fit) ============ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+  // header: transparent over hero -> solid after scrolling
+  const header = document.getElementById('header');
+  const onScroll = () => header.classList.toggle('solid', window.scrollY > 40);
+  onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
+
+  (function () {
+    const hero = document.getElementById('hero');
+    const IMG_URL = 'Gemini_Generated_Image_o5hssvo5hssvo5hs.png';
+    const IMG_ASPECT = 1376/768;
+    function showFallback(){ document.getElementById('fallback').style.display='block'; }
+
+    let gl;
+    try { gl = document.createElement('canvas').getContext('webgl'); } catch(e){}
+    if (!gl || typeof THREE === 'undefined'){ showFallback(); return; }
+
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const renderer = new THREE.WebGLRenderer({ antialias:true, powerPreference:'high-performance' });
+    renderer.setPixelRatio(1);   // cap at 1x - fullscreen shader, big perf win on hi-DPI
+    hero.appendChild(renderer.domElement);
+    const scene = new THREE.Scene();
+    const camera = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+
+    const uniforms = {
+      uTex:{value:null}, uTime:{value:0},
+      uAmp:{value: 0.005},                     // very gentle sway (always on)
+      uScale:{value:new THREE.Vector2(1,1)},   // cover-fit (fill viewport, no distortion)
+    };
+
+    const vert = `varying vec2 vUv; void main(){ vUv=uv; gl_Position=vec4(position,1.0); }`;
+    const frag = `
+      precision highp float;
+      uniform sampler2D uTex; uniform float uTime, uAmp; uniform vec2 uScale;
+      varying vec2 vUv;
+      float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453); }
+      float vnoise(vec2 p){ vec2 i=floor(p),f=fract(p);
+        float a=hash(i),b=hash(i+vec2(1.,0.)),c=hash(i+vec2(0.,1.)),d=hash(i+vec2(1.,1.));
+        vec2 u=f*f*(3.0-2.0*f); return mix(mix(a,b,u.x),mix(c,d,u.x),u.y); }
+      void main(){
+        // cover-fit: map the container UV into the image keeping aspect ratio
+        vec2 st = (vUv - 0.5) * uScale + 0.5;
+        vec3 base = texture2D(uTex, st).rgb;
+        float leaf = smoothstep(0.0, 0.14, base.g - max(base.r, base.b));
+        float t = uTime;
+        // wind travels left -> right across the canopy (two waves of different length = organic)
+        float wave  = sin(st.x*7.0 + st.y*2.0 - t*1.3);
+        float wave2 = sin(st.x*3.5 - st.y*1.5 - t*0.8);
+        float swayX = wave*0.6 + wave2*0.4;
+        float swayY = wave*0.15;
+        vec2 offset = leaf * vec2(swayX, swayY) * uAmp;
+        gl_FragColor = vec4(texture2D(uTex, st+offset).rgb, 1.0);
+      }
+    `;
+    const material = new THREE.ShaderMaterial({uniforms,vertexShader:vert,fragmentShader:frag});
+    scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2,2),material));
+
+    new THREE.TextureLoader().load(IMG_URL,
+      (tex)=>{ tex.minFilter=THREE.LinearFilter; uniforms.uTex.value=tex; },
+      undefined, ()=>showFallback());
+
+    const Q = 0.8;   // render at 80% resolution, CSS upscales - cheaper, still sharp
+    function resize(){
+      const r = hero.getBoundingClientRect();
+      renderer.setSize(r.width * Q, r.height * Q, false);
+      const viewAspect = r.width / r.height;
+      // zoom in on the axis that would otherwise letterbox, so the image always covers
+      if (viewAspect > IMG_ASPECT) uniforms.uScale.value.set(1, IMG_ASPECT/viewAspect);
+      else                         uniforms.uScale.value.set(viewAspect/IMG_ASPECT, 1);
+    }
+    resize(); window.addEventListener('resize', resize);
+
+    const clock = new THREE.Clock();
+    let visible = true, rafId = null, last = 0;
+    const FRAME = 1000/30;                 // ~30fps cap (sway is slow - still smooth)
+    function loop(ts){
+      if(!visible){ rafId = null; return; }
+      rafId = requestAnimationFrame(loop);
+      if(ts - last < FRAME) return;
+      last = ts;
+      uniforms.uTime.value = clock.getElapsedTime();
+      renderer.render(scene,camera);
+    }
+    rafId = requestAnimationFrame(loop);
+
+    function ensureRunning(){ if(visible && rafId === null){ last = 0; rafId = requestAnimationFrame(loop); } }
+
+    // pause all GPU work when the hero is scrolled out of view
+    const io = new IntersectionObserver(([e])=>{ visible = e.isIntersecting; ensureRunning(); }, { threshold:0 });
+    io.observe(hero);
+
+    // resume after the tab/window regains focus (browsers throttle rAF when hidden)
+    document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) ensureRunning(); });
+    window.addEventListener('focus', ensureRunning);
+  })();
+  </script>
+  <!-- ============ STRUCTURED DATA (SEO) ============ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalClinic",
+    "name": "Permai Polyclinics Fortuna",
+    "description": "Quality, trusted family healthcare in Kota Kinabalu, Sabah. Open 24 hours for general consultation, chronic and acute care, vaccinations, health screening, knee and joint injections, ultrasound and more.",
+    "url": "https://www.permaipolyclinics.com/locations/fortuna-2/",
+    "telephone": "+60882-39393",
+    "email": "permaipolyclinics.fortuna@gmail.com",
+    "foundingDate": "1993",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Ground Floor, Lot 3, Block D2, Lorong Seroja 2, Fortuna Commercial Centre, Mile 2.5, Jalan Penampang",
+      "addressLocality": "Kota Kinabalu",
+      "addressRegion": "Sabah",
+      "postalCode": "88200",
+      "addressCountry": "MY"
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "00:00",
+      "closes": "23:59"
+    },
+    "medicalSpecialty": "GeneralPractice",
+    "availableService": [
+      {"@type":"MedicalProcedure","name":"General Consultation"},
+      {"@type":"MedicalProcedure","name":"Acute and Chronic Disease Management"},
+      {"@type":"MedicalProcedure","name":"Emergency Treatment"},
+      {"@type":"MedicalProcedure","name":"Vaccination"},
+      {"@type":"MedicalProcedure","name":"Injections and IV Drip"},
+      {"@type":"MedicalProcedure","name":"Pre-employment Health Screening"},
+      {"@type":"MedicalProcedure","name":"In-House Blood and Urine Tests"},
+      {"@type":"MedicalProcedure","name":"Antenatal Ultrasound"},
+      {"@type":"MedicalProcedure","name":"Knee and Trigger-point (Intra-articular) Injections"},
+      {"@type":"MedicalProcedure","name":"Wound Dressing"}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"Do you offer knee pain treatment and knee injection therapy?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our doctors provide intra-articular knee injections and trigger-point injections to relieve joint and muscle pain, alongside assessment and ongoing management of knee and joint conditions."}},
+      {"@type":"Question","name":"What is an intra-articular (knee) injection?","acceptedAnswer":{"@type":"Answer","text":"It is an injection given directly into the knee joint to reduce inflammation and ease pain. It is a quick, in-clinic procedure performed by our doctors, often used for arthritis and chronic knee pain."}},
+      {"@type":"Question","name":"Are you really open 24 hours?","acceptedAnswer":{"@type":"Answer","text":"Yes. Permai Polyclinics Fortuna is open 24 hours a day, every day of the year, for both routine and emergency care."}},
+      {"@type":"Question","name":"Do I need an appointment, or can I walk in?","acceptedAnswer":{"@type":"Answer","text":"Walk-ins are welcome any time. You can also message us on WhatsApp at 012-939 3537 to arrange a convenient time."}},
+      {"@type":"Question","name":"Do you offer pre-employment health screening?","acceptedAnswer":{"@type":"Answer","text":"Yes. We provide pre-employment and general health screening packages, including blood pressure, blood glucose, urine tests and full blood tests."}},
+      {"@type":"Question","name":"Do you treat children and families?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. We care for the whole family, from babies and children to adults and the elderly, including immunisations and growth check-ups."}},
+      {"@type":"Question","name":"Do you provide emergency treatment and IV drips?","acceptedAnswer":{"@type":"Answer","text":"Yes. We offer emergency treatment around the clock, along with injections and intravenous (IV) drips when needed."}},
+      {"@type":"Question","name":"Where is the clinic located?","acceptedAnswer":{"@type":"Answer","text":"We are at the Fortuna Commercial Centre, Mile 2.5, Jalan Penampang, Kota Kinabalu (Ground Floor, Lot 3, Block D2, Lorong Seroja 2)."}}
+    ]
+  }
+  </script>
+</body>
+</html>
