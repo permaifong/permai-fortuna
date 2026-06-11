@@ -69,6 +69,26 @@
   .hero h1{font-size:clamp(46px,7.2vw,96px); line-height:1.05; color:#fff; text-shadow:0 1px 3px rgba(0,0,0,.55), 0 3px 28px rgba(0,0,0,.6);}
   .hero p{margin-top:22px; font-weight:600; font-size:clamp(18px,2.1vw,26px); opacity:.97; max-width:44ch; text-shadow:0 1px 3px rgba(0,0,0,.6), 0 1px 18px rgba(0,0,0,.6);}
   .hero .h-actions{margin-top:30px; display:flex; gap:14px; flex-wrap:wrap;}
+
+  /* hero copy — slow staggered reveal on load (opacity + translate only, GPU-cheap) */
+  .hero h1 .ln{display:block; opacity:0; transform:translateY(32px);
+    animation:heroRise 1.7s cubic-bezier(.22,.61,.36,1) forwards;}
+  .hero h1 .ln.l2{animation-delay:.4s;}
+  .hero .h-copy p{opacity:0; transform:translateY(24px);
+    animation:heroRise 1.3s cubic-bezier(.22,.61,.36,1) .85s forwards;}
+  .hero .h-actions{opacity:0; transform:translateY(20px);
+    animation:heroRise 1.2s cubic-bezier(.22,.61,.36,1) 1.15s forwards;}
+  @keyframes heroRise{to{opacity:1; transform:none;}}
+
+  /* doctor portrait — fades in when scrolled into view */
+  .doc{opacity:0; transform:translateY(30px);
+    transition:opacity 1.3s cubic-bezier(.22,.61,.36,1), transform 1.3s cubic-bezier(.22,.61,.36,1);}
+  .doc.revealed{opacity:1; transform:none;}
+
+  @media(prefers-reduced-motion:reduce){
+    .hero h1 .ln, .hero .h-copy p, .hero .h-actions{animation:none; opacity:1; transform:none;}
+    .doc{opacity:1; transform:none; transition:none;}
+  }
   .hero .scroll-cue{position:absolute; left:50%; bottom:26px; transform:translateX(-50%); color:#fff; opacity:.8; font-size:12px; letter-spacing:.18em; text-transform:uppercase; text-shadow:0 1px 10px rgba(0,0,0,.5); animation:bob 2.4s ease-in-out infinite;}
   @keyframes bob{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(6px);}}
 
@@ -162,7 +182,7 @@
     <div class="scrim"></div>
     <div class="wrap h-inner">
       <div class="h-copy">
-        <h1>Rooted in care.<br>Growing with generations.</h1>
+        <h1><span class="ln l1">Rooted in care.</span><span class="ln l2">Growing with generations.</span></h1>
         <p>Permai Polyclinics, trusted family healthcare in Kota Kinabalu since 1993.</p>
         <div class="h-actions">
           <a class="btn" href="https://wa.me/60129393537" target="_blank" rel="noopener">Send us a WhatsApp</a>
@@ -421,6 +441,16 @@
     // resume after the tab/window regains focus (browsers throttle rAF when hidden)
     document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) ensureRunning(); });
     window.addEventListener('focus', ensureRunning);
+  })();
+
+  // doctor portrait: fade in once it scrolls into view
+  (function(){
+    const doc = document.querySelector('.doc');
+    if(!doc) return;
+    const dio = new IntersectionObserver((es)=>{
+      es.forEach(e=>{ if(e.isIntersecting){ doc.classList.add('revealed'); dio.unobserve(doc); } });
+    }, { threshold:.25 });
+    dio.observe(doc);
   })();
   </script>
   <!-- ============ STRUCTURED DATA (SEO) ============ -->
